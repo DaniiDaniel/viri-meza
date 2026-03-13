@@ -21,6 +21,12 @@ if (menuToggle) {
     navMenu.classList.toggle("active");
   });
 }
+// Cerrar menú al hacer clic en un enlace
+document.querySelectorAll(".nav-menu a").forEach((link) => {
+  link.addEventListener("click", () => {
+    navMenu.classList.remove("active");
+  });
+});
 
 // Formulario de contacto
 const formulario = document.getElementById("formulario-contacto");
