@@ -39,25 +39,35 @@ if (formulario) {
     const nombre = document.getElementById("nombre").value;
     const email = document.getElementById("email").value;
     const telefono = document.getElementById("telefono").value;
-    const mensaje = document.getElementById("mensaje").value;
+    const motivo = document.getElementById("motivo").value;
 
-    // Crear mensaje para WhatsApp
-    const numeroWhatsApp = "5521709049";
-    const mensajeWhatsApp = `Hola, mi nombre es ${nombre}.%0A%0A${mensaje}%0A%0ACorreo: ${email}%0ATeléfono: ${telefono}`;
+    // Validar que los campos no estén vacíos
+    if (!nombre || !email || !telefono || !motivo) {
+      alert("Por favor completa todos los campos");
+      return;
+    }
 
-    // Abrir WhatsApp con el mensaje
-    window.open(
-      `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`,
-      "_blank",
+    // Crear mensaje para WhatsApp (formato correcto para México)
+    const numeroWhatsApp = "525521709049"; // 52 (México) + 55 (CDMX) + número
+    const mensajeWhatsApp = encodeURIComponent(
+      `Hola, mi nombre es ${nombre}.\n\n` +
+        `Motivo de consulta:\n${motivo}\n\n` +
+        `Datos de contacto:\n` +
+        `Correo: ${email}\n` +
+        `Teléfono: ${telefono}`,
     );
+
+    // Crear URL de WhatsApp
+    const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
+
+    // Abrir WhatsApp en una nueva ventana
+    window.open(urlWhatsApp, "_blank");
 
     // Limpiar formulario
     formulario.reset();
 
     // Mostrar mensaje de confirmación
-    alert(
-      "¡Gracias por tu mensaje! Te redireccionaremos a WhatsApp para continuar la conversación.",
-    );
+    alert("¡Gracias por tu mensaje! Te hemos redirigido a WhatsApp.");
   });
 }
 
