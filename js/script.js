@@ -165,3 +165,68 @@ const testimoniosObserver = new IntersectionObserver(
 
 testimonios.forEach((testimonio) => testimoniosObserver.observe(testimonio));
 
+// Slider vertical de testimonios con hover, límites y rebote
+const list = document.querySelector(".testimonios-list");
+const arrowDown = document.getElementById("testimonios-down");
+const arrowUp = document.getElementById("testimonios-up");
+const viewport = document.querySelector(".testimonios-viewport");
+
+if (list && arrowDown && arrowUp && viewport) {
+  let offset = 0;
+  let scrollInterval = null;
+
+  const totalHeight = list.scrollHeight;
+  const viewportHeight = viewport.offsetHeight;
+  const maxOffset = Math.max(0, totalHeight - viewportHeight);
+
+  function stopScroll() {
+    if (scrollInterval) {
+      clearInterval(scrollInterval);
+      scrollInterval = null;
+    }
+  }
+
+  function startScrollDown() {
+    stopScroll();
+    scrollInterval = setInterval(() => {
+      if (Math.abs(offset) < maxOffset) {
+        offset -= 1;
+        list.style.transform = `translateY(${offset}px)`;
+      } else {
+        list.classList.add("rebote");
+        list.style.transform = `translateY(${offset + 10}px)`;
+        setTimeout(() => {
+          list.style.transform = `translateY(${offset}px)`;
+          list.classList.remove("rebote");
+        }, 150);
+        stopScroll();
+      }
+    }, 10);
+  }
+
+  function startScrollUp() {
+    stopScroll();
+    scrollInterval = setInterval(() => {
+      if (offset < 0) {
+        offset += 1;
+        list.style.transform = `translateY(${offset}px)`;
+      } else {
+        list.classList.add("rebote");
+        list.style.transform = `translateY(${offset - 10}px)`;
+        setTimeout(() => {
+          list.style.transform = `translateY(${offset}px)`;
+          list.classList.remove("rebote");
+        }, 150);
+        stopScroll();
+      }
+    }, 10);
+  }
+
+  arrowDown.addEventListener("mouseenter", startScrollDown);
+  arrowDown.addEventListener("mouseleave", stopScroll);
+
+  arrowUp.addEventListener("mouseenter", startScrollUp);
+  arrowUp.addEventListener("mouseleave", stopScroll);
+}
+
+
