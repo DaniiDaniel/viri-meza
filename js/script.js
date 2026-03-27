@@ -21,6 +21,7 @@ if (menuToggle) {
     navMenu.classList.toggle("active");
   });
 }
+
 // Cerrar menú al hacer clic en un enlace
 document.querySelectorAll(".nav-menu a").forEach((link) => {
   link.addEventListener("click", () => {
@@ -35,20 +36,17 @@ if (formulario) {
   formulario.addEventListener("submit", function (e) {
     e.preventDefault();
 
-    // Obtener valores del formulario
     const nombre = document.getElementById("nombre").value;
     const email = document.getElementById("email").value;
     const telefono = document.getElementById("telefono").value;
     const motivo = document.getElementById("motivo").value;
 
-    // Validar que los campos no estén vacíos
     if (!nombre || !email || !telefono || !motivo) {
       alert("Por favor completa todos los campos");
       return;
     }
 
-    // Crear mensaje para WhatsApp (formato correcto para México)
-    const numeroWhatsApp = "525521709049"; // 52 (México) + 55 (CDMX) + número
+    const numeroWhatsApp = "525521709049";
     const mensajeWhatsApp = encodeURIComponent(
       `Hola, mi nombre es ${nombre}.\n\n` +
         `Motivo de consulta:\n${motivo}\n\n` +
@@ -57,21 +55,15 @@ if (formulario) {
         `Teléfono: ${telefono}`,
     );
 
-    // Crear URL de WhatsApp
     const urlWhatsApp = `https://wa.me/${numeroWhatsApp}?text=${mensajeWhatsApp}`;
-
-    // Abrir WhatsApp en una nueva ventana
     window.open(urlWhatsApp, "_blank");
 
-    // Limpiar formulario
     formulario.reset();
-
-    // Mostrar mensaje de confirmación
     alert("¡Gracias por tu mensaje! Te hemos redirigido a WhatsApp.");
   });
 }
 
-// Animación de aparición al hacer scroll
+// Animación general de aparición al hacer scroll
 const observerOptions = {
   threshold: 0.1,
   rootMargin: "0px 0px -50px 0px",
@@ -116,44 +108,60 @@ window.addEventListener("scroll", () => {
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Página cargada correctamente");
 
-  // Agregar año actual al footer si es necesario
   const currentYear = new Date().getFullYear();
   const yearElements = document.querySelectorAll(".current-year");
   yearElements.forEach((el) => {
-    el.textContent = currentYear;  
+    el.textContent = currentYear;
   });
 });
+
 // Acordeón de Preguntas Frecuentes
-document.querySelectorAll('.faq-pregunta').forEach(button => {
-    button.addEventListener('click', () => {
-        const faqItem = button.parentElement;
-        const isActive = faqItem.classList.contains('active');
-        
-        // Cerrar todos los items
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-        });
-        
-        // Abrir el clickeado si no estaba activo
-        if (!isActive) {
-            faqItem.classList.add('active');
-        }
+document.querySelectorAll(".faq-pregunta").forEach((button) => {
+  button.addEventListener("click", () => {
+    const faqItem = button.parentElement;
+    const isActive = faqItem.classList.contains("active");
+
+    document.querySelectorAll(".faq-item").forEach((item) => {
+      item.classList.remove("active");
     });
+
+    if (!isActive) {
+      faqItem.classList.add("active");
+    }
+  });
 });
+
 // Secciones plegables
-document.querySelectorAll('.seccion-header').forEach(button => {
-    button.addEventListener('click', () => {
-        const seccion = button.parentElement;
-        const isActive = seccion.classList.contains('active');
-        
-        // Cerrar todas las secciones
-        document.querySelectorAll('.seccion-plegable').forEach(item => {
-            item.classList.remove('active');
-        });
-        
-        // Abrir la clickeada si no estaba activa
-        if (!isActive) {
-            seccion.classList.add('active');
-        }
+document.querySelectorAll(".seccion-header").forEach((button) => {
+  button.addEventListener("click", () => {
+    const seccion = button.parentElement;
+    const isActive = seccion.classList.contains("active");
+
+    document.querySelectorAll(".seccion-plegable").forEach((item) => {
+      item.classList.remove("active");
     });
+
+    if (!isActive) {
+      seccion.classList.add("active");
+    }
+  });
 });
+
+// Testimonios — Aparición editorial (fade + slide + stagger)
+const testimonios = document.querySelectorAll(".testimonio");
+
+const testimoniosObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry, index) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add("visible");
+        }, index * 200);
+      }
+    });
+  },
+  { threshold: 0.2 },
+);
+
+testimonios.forEach((testimonio) => testimoniosObserver.observe(testimonio));
+
