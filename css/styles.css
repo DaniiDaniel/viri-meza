@@ -930,3 +930,65 @@ body {
     font-size: 2rem;
   }
 }
+/* Ventana fija */
+.testimonios-viewport {
+  height: 300px; /* muestra 3 testimonios aprox */
+  overflow: hidden;
+  position: relative;
+}
+
+/* Lista que se moverá */
+.testimonios-list {
+  transition: transform 0.2s linear;
+}
+
+/* Flecha */
+.testimonios-arrow {
+  text-align: center;
+  font-size: 1.8rem;
+  cursor: pointer;
+  margin-top: 10px;
+  color: #555;
+  user-select: none;
+}
+
+.testimonios-arrow:hover {
+  color: #000;
+}
+/* Rebote suave */
+.testimonios-list.rebote {
+  transition: transform 0.2s ease-out;
+}
+.testimonios-viewport {
+  height: 300px;
+  overflow: hidden;
+  position: relative;
+}
+
+.testimonios-list {
+  transition: transform 0.15s linear;
+}
+
+.testimonios-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.testimonios-arrow {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: #555;
+  padding: 4px 8px;
+}
+
+.testimonios-arrow:hover {
+  color: #000;
+}
+
+.testimonios-list.rebote {
+  transition: transform 0.2s ease-out;
+}
