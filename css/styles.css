@@ -300,6 +300,51 @@ body {
   border-radius: 4px;
 }
 
+/* Testimonios */
+.testimonios {
+  max-width: 800px;
+  margin: 120px auto;
+  padding: 0 20px;
+}
+
+.testimonios-title {
+  font-size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 60px;
+  color: #333;
+}
+
+/* Estado inicial: invisible + ligeramente abajo */
+.testimonio {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  margin-bottom: 60px;
+  padding-left: 20px;
+  border-left: 3px solid #d8cfc4;
+}
+
+/* Estado final: visible + en su lugar */
+.testimonio.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.testimonio-text {
+  font-size: 1.25rem;
+  line-height: 1.7;
+  color: #444;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+
+.testimonio-author {
+  font-size: 1rem;
+  color: #666;
+  font-weight: 500;
+}
+
 /* Servicios */
 .servicios {
   padding: var(--espaciado-seccion) 0;
